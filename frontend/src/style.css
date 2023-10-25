@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-key-colors {
+    @apply bg-gray-800 text-white rounded-md shadow transition hover:shadow-sm active:shadow-none hover:bg-black active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none;
+  }
+
+  .email-list {
+    @apply email-row flex flex-row px-8 py-4 gap-4 border-b text-black border-gray-200 font-normal focus:bg-white focus:shadow focus:outline-none transition;
+  }
+
+  .dotdotdot {
+    @apply overflow-ellipsis overflow-hidden whitespace-nowrap;
+  }
+}
+/* 
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */

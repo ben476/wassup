@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <link id="preload" rel="prerender" href="/" />
+  </head>
+  <body
+    class="min-h-screen max-h-screen bg-gray-50 flex flex-col-reverse w-full"
+  >
+    <footer
+      class="w-full text-center shadow-2xl p-4 bg-white grid gap-4 grid-flow-row grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-1"
+    >
+      <div>
+        <button
+          id="escape-button"
+          class="h-10 w-20 p-0 mx-3 btn-key-colors"
+          disabled
+          tabindex="-1"
+        >
+          Esc
+        </button>
+        Back
+      </div>
+      <div>
+        <button
+          id="enter-button"
+          class="h-10 w-20 p-0 mx-3 btn-key-colors"
+          tabindex="-1"
+        >
+          Enter
+        </button>
+        Open
+      </div>
+      <div>
+        <button
+          class="h-10 w-10 p-0 mx-3 btn-key-colors"
+          tabindex="-1"
+          id="up-button"
+        >
+          J
+        </button>
+        Up
+      </div>
+      <div>
+        <button
+          class="h-10 w-10 p-0 mx-3 btn-key-colors"
+          tabindex="-1"
+          id="down-button"
+        >
+          K
+        </button>
+        Down
+      </div>
+    </footer>
+    <div class="flex-grow overflow-scroll" id="emails">
+      <div
+        id="loading-spinner"
+        class="flex justify-center items-center w-full flex-col"
+        style="height: 80vh"
+      >
+        <svg
+          class="animate-spin w-10 h-10 fill-gray-600"
+          focusable="false"
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          data-testid="LoopIcon"
+        >
+          <path
+            d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"
+          ></path>
+        </svg>
+        <span class="text-gray-600">Loading...</span>
+      </div>
+      <style>
+        #loading-spinner {
+          display: none;
+        }
+      </style>
+      <a
+        href="/email"
+        autofocus
+        tabindex="0"
+        class="focus-watch font-medium flex flex-row px-8 py-4 gap-4 border-b text-black border-gray-200 focus:bg-white focus:shadow focus:outline-none transition"
+      >
+        <div class="flex-grow-0 w-2/12 dotdotdotp">Me, Vladimir</div>
+        <div class="flex-grow w-0 dotdotdot">
+          Kagi R&D Team
+          <span class="text-gray-400 dotdotdot">
+            - Hi Ben - Have a go at this
+            https://hackmd.io/@P5GS4gJVQUyOMmifHuv13g/HyJTGFDW6
+          </span>
+        </div>
+
+        <div class="flex-grow-0 w-16">24 Oct</div>
+      </a>
+      <a
+        href="/email"
+        autofocus
+        tabindex="0"
+        class="focus-watch flex flex-row px-8 py-4 gap-4 border-b text-black border-gray-200 font-normal focus:bg-white focus:shadow focus:outline-none transition"
+      >
+        <div class="flex-grow-0 w-2/12 dotdotdotp">Me, Vladimir</div>
+        <div class="flex-grow w-0 dotdotdot">
+          Kagi R&D Team
+          <span class="text-gray-400 dotdotdot">
+            - Hi Ben - Have a go at this
+            https://hackmd.io/@P5GS4gJVQUyOMmifHuv13g/HyJTGFDW6
+          </span>
+        </div>
+
+        <div class="flex-grow-0 w-16">24 Oct</div>
+      </a>
+      <a
+        href="/email"
+        autofocus
+        tabindex="0"
+        class="focus-watch flex flex-row px-8 py-4 gap-4 border-b text-black border-gray-200 font-normal focus:bg-white focus:shadow focus:outline-none transition"
+      >
+        <div class="flex-grow-0 w-2/12 dotdotdotp">Me, Vladimir</div>
+        <div class="flex-grow w-0 dotdotdot">
+          Kagi R&D Team
+          <span class="text-gray-400 dotdotdot">
+            - Hi Ben - Have a go at this
+            https://hackmd.io/@P5GS4gJVQUyOMmifHuv13g/HyJTGFDW6
+          </span>
+        </div>
+
+        <div class="flex-grow-0 w-16">24 Oct</div>
+      </a>
+      <a
+        href="/email"
+        autofocus
+        tabindex="0"
+        class="focus-watch flex flex-row px-8 py-4 gap-4 border-b text-black border-gray-200 font-normal focus:bg-white focus:shadow focus:outline-none transition"
+      >
+        <div class="flex-grow-0 w-2/12 dotdotdotp">Me, Vladimir</div>
+        <div class="flex-grow w-0 dotdotdot">
+          Kagi R&D Team
+          <span class="text-gray-400 dotdotdot">
+            - Hi Ben - Have a go at this
+            https://hackmd.io/@P5GS4gJVQUyOMmifHuv13g/HyJTGFDW6
+          </span>
+        </div>
+
+        <div class="flex-grow-0 w-16">24 Oct</div>
+      </a>
+    </div>
+
+    <!-- <style type="module" src="/src/style.css"></style> -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
