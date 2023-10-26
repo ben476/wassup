@@ -1,8 +1,6 @@
 import './style.css';
 
-const focusableElements =
-  '[tabindex]:not([disabled]):not([tabindex="-1"])';
-
+const focusableElements = '[tabindex]:not([disabled]):not([tabindex="-1"])';
 
 function getFocusableElements() {
   return [...document.querySelectorAll<HTMLElement>(focusableElements)];
@@ -18,28 +16,28 @@ function moveFocus(offset: number) {
 }
 
 function onKeydown(event: KeyboardEvent) {
-  console.log(focusable, lastFocusedElement)
   console.log(event.key);
+
   if (event.key === 'Escape') {
     // @ts-ignore
     if (document.getElementById("escape-button")?.disabled) return;
-    // Needs to be called twice for unknown reasons
     history.back()
   }
+
   if (!(event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'j' || event.key === 'k')) return;
   const offset = event.key === 'ArrowUp' || event.key === 'j' ? -1 : 1;
   moveFocus(offset);
+
+
   event.preventDefault();
 }
 
 document.addEventListener("keydown", onKeydown);
 
 document.getElementById("escape-button")?.addEventListener("click", () => history.back());
-
 document.getElementById("enter-button")?.addEventListener("click", () => lastFocusedElement.click());
 
 document.getElementById("up-button")?.addEventListener("click", () => document.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" })));
-
 document.getElementById("down-button")?.addEventListener("click", () => document.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" })));
 
 [...document.getElementsByClassName("focus-watch")].map((e) => {
@@ -52,33 +50,26 @@ document.getElementById("down-button")?.addEventListener("click", () => document
         if (lastFocusedElement === e.target) {
           // @ts-ignore
           const targetURL = e.target.getAttribute("href") ?? "";
-          // document.getElementById("preload")?.setAttribute("href", targetURL);
           const link = document.createElement('link');
           link.rel = 'prefetch';
           link.as = 'document';
           link.href = targetURL;
           document.head.append(link);
-
-          if (HTMLScriptElement.supports &&
-            HTMLScriptElement.supports('speculationrules')) {
-            const specScript = document.createElement('script');
-            specScript.type = 'speculationrules';
-            const specRules = {
-              prerender: [
-                {
-                  source: 'list',
-                  urls: [targetURL],
-                },
-              ],
-            };
-            specScript.textContent = JSON.stringify(specRules);
-            console.log('added speculation rules to: next.html');
-            document.body.append(specScript);
-          }
         }
       }, 250);
     }
   });
+
+  e.addEventListener("click", (e) => {
+    // @ts-ignore
+    if (e.target.tagName === "SUMMARY") {
+      setTimeout(() => {
+        // @ts-ignore
+        e.target.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  })
+
   e.addEventListener("blur", (e) => {
     setTimeout(() => {
       if (!focusable.includes(document.activeElement as HTMLElement))
