@@ -84,6 +84,12 @@ const emailHelper = `<base target="_blank" />
     body {
         font-family: Inter,system-ui,Avenir,Helvetica,Arial,sans-serif
     }
+
+    @media (prefers-color-scheme: dark) {
+        body {
+            color: #eee;
+        }
+    }
 </style>`
 
 // Render sanitized HTML for the email
