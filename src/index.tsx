@@ -78,6 +78,7 @@ app.get('/emails/:id', cookieStateMiddleware, (req, res) => {
     ));
 })
 
+// Used to make plain text prettier and links open in a new tab
 const emailHelper = `<base target="_blank" />
 <style>
     body {
@@ -85,6 +86,7 @@ const emailHelper = `<base target="_blank" />
     }
 </style>`
 
+// Render sanitized HTML for the email
 app.get("/emails/:id/:uid/html", cookieStateMiddleware, (req, res) => {
     const thread = req.state.threads[req.params.id];
     const message = thread.messages.find(

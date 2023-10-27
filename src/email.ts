@@ -24,22 +24,11 @@ export async function getClient(
         useSecureTransport: secure,
         requireTLS: secure,
         requireSSL: secure,
-        // ignoreTLS: true,
     });
 
-    // const client: ImapClient = new ImapClient("imap.gmail.com", 993, {
-    //     logLevel: "info",
-    //     auth: {
-    //         user: user,
-    //         pass: password
-    //     },
-    //     useSecureTransport: true,
-    //     requireTLS: true,
-    //     requireSSL: true,
-    //     // ignoreTLS: true,
-    // });
-
     await client.connect();
+
+    // Mailbox must be fetch here to check if the connection is valid
     const mailbox: Mailbox = await client.selectMailbox("INBOX");
 
     return [client, mailbox];
