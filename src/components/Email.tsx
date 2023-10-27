@@ -16,7 +16,7 @@ export default function Email({ email = {}, ...props }: { email?: EmailType, [ke
         </summary>
         <base target="_parent" />
         <div className='w-full px-6'>
-            <iframe className={`w-full text-gray-800 dark:text-gray-50 divide-y message-view-${email.id}`} src={`/emails/${email.threadId}/${email.id}/html`} sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin" tabIndex={-1} />
+            <iframe className={`w-full h-full text-gray-800 dark:text-gray-50 divide-y message-view-${email.id}`} src={`/emails/${email.threadId}/${email.id}/html`} sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin" tabIndex={-1} />
             <script dangerouslySetInnerHTML={{
                 __html: `
                 {
