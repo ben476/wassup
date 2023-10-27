@@ -106,6 +106,7 @@ app.get("/emails/:id/:uid/html", cookieStateMiddleware, (req, res) => {
     res.send(DOMPurify.sanitize(html, { FORCE_BODY: true, ADD_ATTR: ['target'], ADD_TAGS: ['base'] }));
 });
 
+// Connect to IMAP server
 app.post("/", cookieStateMiddleware, async (req, res) => {
     const { host, port, username, password, tls } = req.body;
 
@@ -123,6 +124,7 @@ app.post("/", cookieStateMiddleware, async (req, res) => {
     res.redirect("/emails");
 });
 
+// Render home page
 app.get("/", cookieStateMiddleware, async (req, res) => {
     // check for error query param
     if (req.query.error) {
