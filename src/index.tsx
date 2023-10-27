@@ -71,7 +71,7 @@ app.get('/emails/:id', cookieStateMiddleware, (req, res) => {
                     date: formatDate(message.date),
                     opened: message.opened,
                     open: i === thread.messages.length - 1
-                }} />)}
+                }} key={i} />)}
             </Thread>
         </KeyNavigation>
     </Root>

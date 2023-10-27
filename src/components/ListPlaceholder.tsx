@@ -8,6 +8,7 @@ export default function ListPlaceholder() {
             date: <div className="bg-gray-200 dark:bg-gray-700 text-transparent w-2/3 block rounded-full">A</div>,
         }}
             tabIndex={-1}
+            key={i}
         />)}
     </div>;
 }
