@@ -1,16 +1,16 @@
 export default function Index({ error }: { error?: string }) {
     return (
         <div
-            className="min-h-[100dvh] max-h-[100dvh] bg-gray-50 dark:bg-gray-800 dark:text-white flex flex-col w-full items-center"
+            className="min-h-[100dvh] max-h-[100dvh] bg-gray-50 dark:bg-gray-900 dark:text-white flex flex-col w-full items-center"
         >
-            <div className="m-12 text-gray-700" style={{ marginRight: '-1vw' }}>
+            <div className="m-12 dark:text-gray-100" style={{ marginRight: '-1vw' }}>
                 <h1 className="text-7xl md:text-8xl font-semibold">Dead</h1>
                 <h1 className="text-7xl md:text-8xl font-semibold">Simple</h1>
                 <h1 className="text-7xl md:text-8xl font-semibold">Email</h1>
             </div>
             <div className="w-full overflow-x-clip relative flex-grow">
                 <svg
-                    className="text-gray-500 dark:text-gray-400 absolute left-0 -top-32 rotate-45"
+                    className="fill-gray-800 dark:fill-gray-200 absolute left-0 -top-32 rotate-45"
                     focusable="false"
                     aria-hidden="true"
                     viewBox="0 0 24 24"
@@ -27,7 +27,7 @@ export default function Index({ error }: { error?: string }) {
                     ></path>
                 </svg>
                 <svg
-                    className="text-gray-500 dark:text-gray-400 absolute right-0 -top-32 -rotate-12"
+                    className="fill-gray-800 dark:fill-gray-200 absolute right-0 -top-32 -rotate-12"
                     focusable="false"
                     aria-hidden="true"
                     viewBox="0 0 24 24"
@@ -46,16 +46,16 @@ export default function Index({ error }: { error?: string }) {
             </div>
             <div className="w-full max-w-xs flex-grow-0 mb-12">
                 <form
-                    className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                    className="bg-white dark:bg-gray-800 text-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4"
                     action="/"
                     method="post"
                 >
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="host">
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2" htmlFor="host">
                             IMAP host
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             id="host"
                             name="host"
                             type="text"
@@ -64,11 +64,11 @@ export default function Index({ error }: { error?: string }) {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="host">
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2" htmlFor="host">
                             IMAP port
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             id="port"
                             name="port"
                             type="number"
@@ -78,13 +78,13 @@ export default function Index({ error }: { error?: string }) {
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2"
                             htmlFor="username"
                         >
                             Username
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             id="username"
                             name="username"
                             type="text"
@@ -94,13 +94,13 @@ export default function Index({ error }: { error?: string }) {
                     </div>
                     <div className="mb-2">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2"
                             htmlFor="current-password"
                         >
                             Password
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                             id="current-password"
                             name="password"
                             type="password"
@@ -117,19 +117,18 @@ export default function Index({ error }: { error?: string }) {
                             type="checkbox"
                             value="tls"
                         />
-                        <label className="ml-2 text-sm font-bold" htmlFor="tls"> Use TLS </label>
+                        <label className="ml-2 text-sm text-gray-700 dark:text-gray-300 font-bold" htmlFor="tls"> Use TLS </label>
                     </div>
                     {error && <p className="text-red-500 italic mb-3">{error}</p>}
                     <div className="flex items-center justify-between">
                         <button
-                            className="bg-blue-500 hover-bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className="btn-key-colors font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
                             Open
                         </button>
                     </div>
                 </form>
             </div>
-            <script type="module" src="/src/main.ts"></script>
         </div>
     );
 }
