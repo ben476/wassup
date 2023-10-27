@@ -1,3 +1,0 @@
-# HTTP Headers for SPA
-/assets/*
-    cache-control: public, max-age=31536000
