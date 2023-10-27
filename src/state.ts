@@ -6,14 +6,17 @@ const states: Record<string, State> = {};
 export function cookieStateMiddleware(req: Request, res: any, next: any) {
     let id = req.cookies.id;
 
-    // create a new session if one doesn't exist
-    if (!id || !states[id]) {
+    if (!id) {
         id = webcrypto.randomUUID();
+        res.cookie("id", id);
+    }
+
+    // create a new session if one doesn't exist
+    if (!states[id]) {
         states[id] = {
             lastUsed: Date.now(),
             id,
         };
-        res.cookie("id", id);
     }
 
     expireState(id);
