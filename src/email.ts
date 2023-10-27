@@ -36,10 +36,10 @@ export async function getClient(
 
 export async function listThreads(req: Request) {
     const { client, mailbox } = req.state;
-    const messages = await client.listMessages("INBOX", `1:${mailbox.exists}`, [
+    const messages = await client.listMessages("INBOX", `${mailbox.exists - 100}:*`, [
         "uid",
         "flags",
-        "body[]",
+        "body.peek[]",
     ]);
 
     const parsedMessages: ParsedMessage[] = await Promise.all(
