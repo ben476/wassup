@@ -57,27 +57,6 @@ app.get('/emails', cookieStateMiddleware, inject(<Root>
     }
 }))
 
-app.get('/emails/:id', cookieStateMiddleware, (req, res) => {
-    const thread = req.state.threads[req.params.id];
-    res.send(ReactDOMServer.renderToString(<Root>
-        <KeyNavigation>
-            <Thread title={thread.subject}>
-                {thread.messages.map((message: ParsedMessage, i) => <Email email={{
-                    id: message.uid,
-                    threadId: thread.id,
-                    sender: message.from.text,
-                    subject: message.subject,
-                    body: message.text,
-                    date: formatDate(message.date),
-                    opened: message.opened,
-                    open: i === thread.messages.length - 1
-                }} key={i} />)}
-            </Thread>
-        </KeyNavigation>
-    </Root>
-    ));
-})
-
 // Used to make plain text prettier and links open in a new tab
 const emailHelper = `<base target="_blank" />
 <style>
@@ -92,19 +71,37 @@ const emailHelper = `<base target="_blank" />
     }
 </style>`
 
-// Render sanitized HTML for the email
-app.get("/emails/:id/:uid/html", cookieStateMiddleware, (req, res) => {
+app.get('/emails/:id', cookieStateMiddleware, (req, res) => {
     const thread = req.state.threads[req.params.id];
-    const message = thread.messages.find(
-        (message) => message.uid === parseInt(req.params.uid)
-    );
-    let html = message.html;
+    res.send(ReactDOMServer.renderToString(<Root>
+        <KeyNavigation>
+            <Thread title={thread.subject}>
+                {thread.messages.map((message: ParsedMessage, i) => {
+                    let { html } = message;
 
-    if (html.includes("<head>")) html = html.replace("<head>", "<head>" + emailHelper);
-    else html = emailHelper + html;
+                    if (html.includes("<head>")) {
+                        html = html.replace("<head>", "<head>" + emailHelper);
+                    } else {
+                        html = emailHelper + html;
+                    }
 
-    res.send(DOMPurify.sanitize(html, { FORCE_BODY: true, ADD_ATTR: ['target'], ADD_TAGS: ['base'] }));
-});
+                    return <Email email={{
+                        id: message.uid,
+                        threadId: thread.id,
+                        sender: message.from.text,
+                        subject: message.subject,
+                        body: message.text,
+                        bodyHTML: DOMPurify.sanitize(html, { FORCE_BODY: true, ADD_ATTR: ['target'], ADD_TAGS: ['base'] }),
+                        date: formatDate(message.date),
+                        opened: message.opened,
+                        open: i === thread.messages.length - 1
+                    }} key={i} />
+                })}
+            </Thread>
+        </KeyNavigation>
+    </Root>
+    ));
+})
 
 // Connect to IMAP server
 app.post("/", cookieStateMiddleware, async (req, res) => {
