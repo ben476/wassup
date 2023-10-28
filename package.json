@@ -9,7 +9,8 @@
     "isomorphic-dompurify": "^1.9.0",
     "mailparser": "^3.6.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind": "^4.0.0"
   },
   "name": "wassup",
   "description": "``` deno run --allow-net hello.ts ```",
@@ -26,7 +27,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npx tsc --watch\" \"npx tsc --watch -p tsconfig.browser.json\" \"nodemon -q build/index.js\" \"npx tailwindcss -i ./static/style.src.css -o ./static/style.css --watch\"",
-    "build": "tsc",
+    "build": "tsc && tsc -p tsconfig.browser.json && npx tailwindcss -i ./static/style.src.css -o ./static/style.css",
     "start": "npm run build && node build/index.js"
   },
   "author": "",
