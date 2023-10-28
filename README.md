@@ -17,7 +17,6 @@ Built using:
 - [x] Loading spinners with no JavaScript through HTML streaming magic!
 - [x] Instant navigation using bfcache and preloading - feels like a SPA! (500ms artificial TTFB is completely unnoticeable).
 - [x] No UI framework! (Okay, I'm using Tailwind CSS, but that's basically the same as writing it yourself).
-- [x] Light _and dark_ mode!
 
 ## Limitations
 
