@@ -1,10 +1,10 @@
 import { webcrypto } from "crypto";
-import { Request } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 const states: Record<string, State> = {};
 
-export function cookieStateMiddleware(req: Request, res: any, next: any) {
-    let id = req.cookies.id;
+export function cookieStateMiddleware(req: Request, res: Response, next: NextFunction) {
+    let { id } = req.cookies;
 
     if (!id) {
         id = webcrypto.randomUUID();
@@ -39,7 +39,7 @@ function expireState(id: any) {
 }
 
 export function resetState(req: Request) {
-    const id = req.cookies.id;
+    const { id } = req.cookies;
 
     states[id] = {
         lastUsed: Date.now(),

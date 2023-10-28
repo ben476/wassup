@@ -13,7 +13,7 @@ import Thread from './components/Thread.js';
 import { getClient, listThreads } from './email.js';
 import { Outlet, inject } from './injection.js';
 import { resetState, cookieStateMiddleware } from './state.js';
-import { formatDate } from './utils.js';
+import { formatDate, privateCache } from './utils.js';
 import Index from './components/Index.js';
 
 const app = express();
@@ -24,7 +24,7 @@ app.use('/static', express.static('static', {
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/emails', cookieStateMiddleware, inject(<Root>
+app.get('/emails', privateCache, cookieStateMiddleware, inject(<Root>
     <KeyNavigation escape={false}>
         <List>
             <ListPlaceholder />
@@ -71,12 +71,13 @@ const emailHelper = `<base target="_blank" />
     }
 </style>`
 
-app.get('/emails/:id', cookieStateMiddleware, (req, res) => {
+app.get('/emails/:id', privateCache, cookieStateMiddleware, (req, res) => {
     const thread = req.state.threads[req.params.id];
     res.send(ReactDOMServer.renderToString(<Root>
         <KeyNavigation>
             <Thread title={thread.subject}>
                 {thread.messages.map((message: ParsedMessage, i) => {
+                    // Sanitize the email and make it look nicer
                     let { html } = message;
 
                     if (html.includes("<head>")) {
@@ -118,6 +119,7 @@ app.post("/", cookieStateMiddleware, async (req, res) => {
         </Root>));
         return;
     }
+
     res.redirect("/emails");
 });
 

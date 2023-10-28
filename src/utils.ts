@@ -1,3 +1,5 @@
+import { NextFunction, Request, Response } from "express";
+
 export function formatDate(date: Date, timezone = "America/Los_Angeles") {
     const now = new Date();
     const sameYear = now.getFullYear() === date.getFullYear();
@@ -27,4 +29,9 @@ export function formatDate(date: Date, timezone = "America/Los_Angeles") {
             timeZone: timezone,
         });
     }
+}
+
+export function privateCache(req: Request, res: Response, next: NextFunction) {
+    res.set('Cache-Control', 'private, max-age=60');
+    next();
 }

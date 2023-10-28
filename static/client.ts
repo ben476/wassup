@@ -21,9 +21,9 @@ function onKeydown(event: KeyboardEvent) {
 
     if (event.key === 'Escape') {
         // @ts-ignore
-        if (document.getElementById("escape-button")?.disabled) {
+        if (document.getElementById("escape-button")?.disabled)
             return;
-        }
+
         event.preventDefault()
         event.stopPropagation()
         history.back()
@@ -35,9 +35,9 @@ function onKeydown(event: KeyboardEvent) {
         lastFocusedElement.click();
     }
 
-    if (!(event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'j' || event.key === 'k')) {
+    if (!(event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'j' || event.key === 'k'))
         return;
-    }
+
     const offset = event.key === 'ArrowUp' || event.key === 'j' ? -1 : 1;
     moveFocus(offset);
 
@@ -64,10 +64,13 @@ document.getElementById("down-button")?.addEventListener("click", () => document
                     // @ts-ignore
                     const targetURL = e.target.getAttribute("href") ?? "";
                     const link = document.createElement('link');
-                    link.rel = 'prefetch';
-                    link.as = 'document';
-                    link.href = targetURL;
-                    document.head.append(link);
+                    if (link.relList && link.relList.supports && link.relList.supports('prefetch')) {
+                        [link.rel, link.as, link.href] = ['prefetch', 'document', targetURL];
+                        document.head.append(link);
+                    } else {
+                        // @ts-ignore
+                        fetch(e.target.getAttribute("href") ?? "", { credentials: "include" });
+                    }
                 }
             }, 250);
         }
@@ -83,16 +86,14 @@ document.getElementById("down-button")?.addEventListener("click", () => document
         }
     })
 
-    e.addEventListener("blur", (e) => {
-        setTimeout(() => {
-            if (!focusable.includes(document.activeElement as HTMLElement)) {
-                // @ts-ignore
-                e.target?.focus()
-            }
-        }, 100);
-    });
+    e.addEventListener("blur", (e) => setTimeout(() => {
+        if (!focusable.includes(document.activeElement as HTMLElement)) {
+            // @ts-ignore
+            e.target?.focus()
+        }
+    }, 100)
+    );
 });
 
 lastFocusedElement.focus();
-
 lastFocusedElement.scrollIntoView({ behavior: "smooth" });
