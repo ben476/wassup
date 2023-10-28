@@ -1,9 +1,9 @@
 export default function Index({ error }: { error?: string }) {
     return (
         <div
-            className="min-h-[100dvh] max-h-[100dvh] bg-gray-50 dark:bg-gray-900 dark:text-white flex flex-col w-full items-center"
+            className="min-h-[100dvh] bg-gray-50 dark:bg-gray-900 dark:text-white flex flex-col w-full items-center"
         >
-            <div className="m-12 dark:text-gray-100" style={{ marginRight: '-1vw' }}>
+            <div className="m-12 dark:text-gray-100 text-center">
                 <h1 className="text-7xl md:text-8xl font-semibold">Dead</h1>
                 <h1 className="text-7xl md:text-8xl font-semibold">Simple</h1>
                 <h1 className="text-7xl md:text-8xl font-semibold">Email</h1>
