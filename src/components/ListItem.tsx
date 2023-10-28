@@ -5,7 +5,7 @@ export default function ListItem({ email = {}, ...props }: { email?: EmailType, 
         tabIndex={0}
         key={email.id}
         {...props}
-        className={"focus-watch font-medium flex flex-row px-8 py-4 gap-4 rounded-none border-b dark:border-none border-gray-200 focus:bg-white focus:dark:bg-gray-800 focus:shadow focus:outline-none transition " + (email.opened ? "font-normal " : "font-medium ") + (props.className || "")}
+        className={"focus-watch font-medium flex flex-row px-8 py-4 gap-4 rounded-none border-b dark:border-none border-gray-200 focus:bg-white focus:dark:bg-gray-800 focus:shadow focus:outline-none transition " + (email.opened ? "font-normal " : "font-semibold ") + (props.className || "")}
     >
         <div className="flex-grow-0 w-2/12 flex flex-row gap-2">
             <div className="flex-grow dotdotdot">
