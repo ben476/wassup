@@ -23,6 +23,6 @@ export default function ListItem({ email = {}, ...props }: { email?: EmailType, 
             </span>
         </div>
 
-        <div className="flex-grow-0 font-normal w-32">{email.date}</div>
+        <div className="flex-grow-0 font-normal w-24">{email.date}</div>
     </a>;
 }
