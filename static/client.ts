@@ -21,7 +21,11 @@ function onKeydown(event: KeyboardEvent) {
 
     if (event.key === 'Escape') {
         // @ts-ignore
-        if (document.getElementById("escape-button")?.disabled) return;
+        if (document.getElementById("escape-button")?.disabled) {
+            return;
+        }
+        event.preventDefault()
+        event.stopPropagation()
         history.back()
     }
 
@@ -31,7 +35,9 @@ function onKeydown(event: KeyboardEvent) {
         lastFocusedElement.click();
     }
 
-    if (!(event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'j' || event.key === 'k')) return;
+    if (!(event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'j' || event.key === 'k')) {
+        return;
+    }
     const offset = event.key === 'ArrowUp' || event.key === 'j' ? -1 : 1;
     moveFocus(offset);
 
@@ -79,9 +85,10 @@ document.getElementById("down-button")?.addEventListener("click", () => document
 
     e.addEventListener("blur", (e) => {
         setTimeout(() => {
-            if (!focusable.includes(document.activeElement as HTMLElement))
+            if (!focusable.includes(document.activeElement as HTMLElement)) {
                 // @ts-ignore
                 e.target?.focus()
+            }
         }, 100);
     });
 });
