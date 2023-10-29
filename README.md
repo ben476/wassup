@@ -18,6 +18,13 @@ Built using:
 - [x] Instant navigation using bfcache and preloading - feels like a SPA! (500ms artificial TTFB is completely unnoticeable).
 - [x] No UI framework! (Okay, I'm using Tailwind CSS, but that's basically the same as writing it yourself).
 
+## Running
+
+```sh
+npm install
+npm start
+```
+
 ## Limitations
 
 - [ ] Poor offline experience - it's kind of inconvenient to turn an MPA into a PWA. I might as well make it a SPA.
