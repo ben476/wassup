@@ -23,8 +23,9 @@ app.use('/static', express.static('static', {
 }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieStateMiddleware);
 
-app.get('/emails', privateCache, cookieStateMiddleware, inject(<Root>
+app.get('/emails', privateCache, inject(<Root>
     <KeyNavigation escape={false}>
         <List>
             <ListPlaceholder />
@@ -32,6 +33,11 @@ app.get('/emails', privateCache, cookieStateMiddleware, inject(<Root>
         </List>
     </KeyNavigation>
 </Root>, async (req: Request, res) => {
+    if (!req.state?.client) {
+        res.redirect("/");
+        return;
+    }
+
     // Whatever we do here (even though we're using async) will be rendered in the Outlet, 
     // but without blocking anything already rendered from being sent to the client
     req.state.threads ||= await listThreads(req);
@@ -71,8 +77,14 @@ const emailHelper = `<base target="_blank" />
     }
 </style>`
 
-app.get('/emails/:id', privateCache, cookieStateMiddleware, (req, res) => {
-    const thread = req.state.threads[req.params.id];
+app.get('/emails/:id', privateCache, (req, res) => {
+    const thread = req.state?.threads?.[req.params.id];
+
+    if (!thread) {
+        res.redirect("/");
+        return;
+    }
+
     res.send(ReactDOMServer.renderToString(<Root>
         <KeyNavigation>
             <Thread title={thread.subject}>
@@ -105,7 +117,7 @@ app.get('/emails/:id', privateCache, cookieStateMiddleware, (req, res) => {
 })
 
 // Connect to IMAP server
-app.post("/", cookieStateMiddleware, async (req, res) => {
+app.post("/", async (req, res) => {
     const { host, port, username, password, tls } = req.body;
 
     try {
@@ -124,7 +136,7 @@ app.post("/", cookieStateMiddleware, async (req, res) => {
 });
 
 // Render home page
-app.get("/", cookieStateMiddleware, async (req, res) => {
+app.get("/", async (req, res) => {
     // check for error query param
     if (req.query.error) {
         res.send(ReactDOMServer.renderToString(<Root>

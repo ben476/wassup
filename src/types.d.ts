@@ -90,6 +90,7 @@ interface ImapClient {
         fields: string[]
     ): Promise<Message[]>;
     selectMailbox(mailbox: string): Promise<Mailbox>;
+    close(): Promise<void>;
 }
 
 interface Mailbox {

@@ -33,6 +33,7 @@ function expireState(id: any) {
     // delete session if it hasn't been used in an hour
     setTimeout(() => {
         if (states[id].lastUsed === lastUsed) {
+            states[id].client?.close();
             delete states[id];
         }
     }, 1000 * 60 * 60);
