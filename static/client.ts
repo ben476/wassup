@@ -35,10 +35,10 @@ function onKeydown(event: KeyboardEvent) {
         lastFocusedElement.click();
     }
 
-    if (!(event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'j' || event.key === 'k'))
+    if (!(event.key === 'j' || event.key === 'k'))
         return;
 
-    const offset = event.key === 'ArrowUp' || event.key === 'j' ? -1 : 1;
+    const offset = event.key === 'j' ? -1 : 1;
     moveFocus(offset);
 
     event.preventDefault();
