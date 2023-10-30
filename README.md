@@ -34,7 +34,8 @@ npm start
 ## Roadmap
 
 - [ ] Fix quality of life issues:
-  - [ ] WebKit caching behaviour - doesn't support `<link rel="prefetch">`, so I rely on `fetch()` instead for preloading. However, if the user navigates before the fetch finishes, the request is not cached/reused and starts again, unlike `<link rel="prefetch">` in Chrome and Firefox
+  - [ ] WebKit caching behaviour - sometimes only works if devtools is open?!?!
+  - [ ] WebKit caching behaviour - doesn't support `<link rel="prefetch">`, so I rely on `fetch()` instead for preloading. However, if the user navigates before the fetch finishes, the request is not cached/reused and starts again, unlike `<link rel="prefetch">` in Chrome and Firefox.
   - [ ] Loading spinner doesn't work on WebKit - it only starts rendering while the emails are streaming.
   - [x] ~~Allow keyboard scrolling for emails - the current keybindings are for navigation, so I'll add more for scrolling.~~ Arrow keys work. I was binding them to do the same things as <kbd>j</kbd> and <kbd>k</kbd> for some reason.
   - [ ] Render emails in the same document rather than an iframe for better performance, dark mode support, and accessibility.
