@@ -92,6 +92,19 @@ app.get('/emails/:id', privateCache, (req, res) => {
                     // Sanitize the email and make it look nicer
                     let { html } = message;
 
+                    html ||= `<!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                        <title>${message.subject}</title>
+                        </head>
+                        <body>
+                            <pre>${message.text}</pre>
+                            </body>
+                            </html>
+                            `
+
                     if (html.includes("<head>")) {
                         html = html.replace("<head>", "<head>" + emailHelper);
                     } else {
